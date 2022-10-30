@@ -20,9 +20,16 @@ Including another URLconf
 #     path('admin/', admin.site.urls),
 # ]
 
-from django.urls import path
+from django.urls import path, include
 from hello import views
 
+product_patterns = [
+    path("", views.products),
+    path("new", views.new),
+    path("top", views.top),
+]
+
 urlpatterns = [
-    path('', views.index, name = 'home'),
+    path('', views.index),
+    path("products/", include(product_patterns)),
 ]

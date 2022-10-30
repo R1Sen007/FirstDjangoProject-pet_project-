@@ -9,9 +9,18 @@ def index(request):
 
 def products(request):
     return HttpResponse("Produsts list")
+
+def product(request, id):
+    return HttpResponse(f"Product №{id}")
  
 def new(request):
     return HttpResponse("New products")
  
 def top(request):
     return HttpResponse("Top products")
+
+def comments(request, id):
+    return HttpResponse(f"Comments about product №{id}")
+
+def questions(request, id):
+    return HttpResponse(f"Questions about product №{id}")

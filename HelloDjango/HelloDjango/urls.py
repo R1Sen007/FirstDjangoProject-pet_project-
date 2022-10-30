@@ -23,13 +23,20 @@ Including another URLconf
 from django.urls import path, include
 from hello import views
 
-product_patterns = [
+products_patterns = [
     path("", views.products),
     path("new", views.new),
     path("top", views.top),
 ]
 
+product_atribute = [
+    path("", views.product),
+    path("comments", views.comments),
+    path("questions", views.questions)
+]
+
 urlpatterns = [
     path('', views.index),
-    path("products/", include(product_patterns)),
+    path("products/<int:id>/", include(product_atribute)),
+    path("products/", include(products_patterns)),
 ]

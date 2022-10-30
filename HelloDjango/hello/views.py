@@ -24,3 +24,8 @@ def comments(request, id):
 
 def questions(request, id):
     return HttpResponse(f"Questions about product №{id}")
+
+def user(request):
+    age = request.GET.get("age", "Undefined")
+    name = request.GET.get("name", "Undefined")
+    return HttpResponse(f"<h2>NAME: {name} <br> AGE: {age}</h2>")

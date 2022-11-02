@@ -6,7 +6,12 @@ from django.http import HttpResponse
 
 def index(request):
     # return HttpResponse("<h2>Main page</h2>")
-    return render(request, "index.html")
+    return render(request, "index2.html")
+
+def postuser(request):
+    name = request.POST.get("name", "undefined")
+    age = request.POST.get("age", "undefined")
+    return HttpResponse(f"<h2>NAME: {name} <br> AGE: {age}</h2>")
 
 def products(request):
     return HttpResponse("Produsts list")

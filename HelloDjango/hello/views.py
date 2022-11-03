@@ -3,10 +3,18 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.http import HttpResponse
+from .forms import UserForm
 
 def index(request):
     # return HttpResponse("<h2>Main page</h2>")
-    return render(request, "index2.html")
+    # return render(request, "index.html")
+    # return render(request, "index2.html")
+    if request.method == "GET":
+        userform = UserForm()
+        return render(request, "index3.html", {"form" : userform})
+    elif request.method == "POST":
+        return postuser(request)
+
 
 def postuser(request):
     name = request.POST.get("name", "undefined")

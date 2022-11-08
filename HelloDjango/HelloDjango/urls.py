@@ -37,6 +37,9 @@ product_atribute = [
 
 urlpatterns = [
     path('', views.index),
+    path("create/", views.create),
+    path("edit/<int:id>/", views.edit),
+    path("delete/<int:id>/", views.delete),
     path("postuser/", views.postuser),
     path("user", views.user),
     path("products/<int:id>/", include(product_atribute)),

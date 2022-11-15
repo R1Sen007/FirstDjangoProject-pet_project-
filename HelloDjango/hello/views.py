@@ -16,9 +16,11 @@ def index(request):
     # elif request.method == "POST":
     #     return postuser(request)
 
-    people = Person.objects.all()
-    userform = UserForm()
-    return render(request, "index3.html", {"form" : userform, "people" : people})
+
+    # people = Person.objects.all()
+    # userform = UserForm()
+    # return render(request, "index3.html", {"form" : userform, "people" : people})
+    return
 
 def create(request):
     if request.method == "POST":

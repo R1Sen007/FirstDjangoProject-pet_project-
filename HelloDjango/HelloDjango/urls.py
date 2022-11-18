@@ -21,6 +21,7 @@ Including another URLconf
 # ]
 
 from django.urls import path, include
+from django.contrib import admin
 from hello import views
 
 # products_patterns = [
@@ -47,5 +48,6 @@ from hello import views
 # ]
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.index)
 ]

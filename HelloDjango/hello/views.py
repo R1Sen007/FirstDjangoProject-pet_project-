@@ -20,7 +20,8 @@ def index(request):
     # people = Person.objects.all()
     # userform = UserForm()
     # return render(request, "index3.html", {"form" : userform, "people" : people})
-    return render(request, "index4.html")
+    return render(request, "home.html")
+
 
 # def create(request):
 #     if request.method == "POST":

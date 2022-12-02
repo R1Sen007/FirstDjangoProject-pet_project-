@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from users.models import Profile
+
 
 # Create your models here.
 class Person(models.Model):
@@ -13,12 +16,12 @@ class Adress(models.Model):
     def __str__(self):
         return ",".join([self.city[:3], self.street, str(self.house)])
     
-class Owners(models.Model):
-    name = models.CharField(max_length = 20)
-    surname = models.CharField(max_length = 20)
+# class Owners(models.Model):
+#     name = models.CharField(max_length = 20)
+#     surname = models.CharField(max_length = 20)
 
-    def __str__(self):
-        return  " ".join([self.name,self.surname])
+#     def __str__(self):
+#         return  " ".join([self.name,self.surname])
 
 class Products(models.Model):
     name = models.CharField(max_length= 20)
@@ -30,7 +33,7 @@ class Shop(models.Model):
     name = models.CharField(max_length = 20)
     product = models.ManyToManyField(Products, through="ShopProducts")
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
-    owner = models.ForeignKey(Owners, on_delete= models.CASCADE)
+    ownerProfile = models.ForeignKey(Profile, on_delete= models.CASCADE)
 
     def __str__(self):
         return " ".join([self.name, str(self.adress)])

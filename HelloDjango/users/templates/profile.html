@@ -1,0 +1,25 @@
+{% extends "indexBoostrap.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2   shadow p-2 rounded" >
+               <h2>My shops</h2>
+            </div>
+            <div class="col-md-9 offset-md-1  shadow p-2 rounded" >
+               <div class="media">
+                    <figure class="figure">
+                        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+                        <figcaption class="figure-caption text-center">
+                            <a href="{% url 'update' %}">change profile</a>
+                        </figcaption>
+                    </figure>                                     
+                    <div class="media-body">
+                        <h5>{{user.first_name}} {{user.last_name}} {%if user.first_name == "" and user.last_name == ""%} {{user.username}} {%endif%}</h5>
+                        <p>{{user.email}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+{% endblock content %}

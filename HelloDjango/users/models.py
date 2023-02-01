@@ -10,9 +10,28 @@ class Profile(models.Model):
     def __str__(self):
         return " ".join([self.user.first_name, self.user.last_name])
 
-    def get_mini_profile_pic(self):
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
-        img.thumbnail((300,300))
+        if img.height > 300 or img.width > 300:
+            size = (200, 200)
+            img = expand2square(img, (0, 0, 0))
+            img.thumbnail(size)
+            img.save(self.image.path)        
+
+
+def expand2square(pil_img, background_color):
+    width, height = pil_img.size
+    if width == height:
+        return pil_img
+    elif width > height:
+        result = Image.new(pil_img.mode, (width, width), background_color)
+        result.paste(pil_img, (0, (width - height) // 2))
+        return result
+    else:
+        result = Image.new(pil_img.mode, (height, height), background_color)
+        result.paste(pil_img, ((height - width) // 2, 0))
+        return result
         
     
 

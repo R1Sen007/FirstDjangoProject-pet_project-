@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
+from hello.models import Shop
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 # from django.views.generic import 
 
@@ -18,14 +20,22 @@ def register(request):
         form = UserRegistrationForm()
         return render(request, "signin.html", {'form': form})
 
-@login_required
+@login_required(redirect_field_name='home')
 def profile(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, "profile.html")
+        print(request.user.id)
+        context = {
+            'shops': Shop.objects.filter(ownerProfile = request.user.id)
+        }
+        return render(request, "profile.html", context)
 
-@login_required
+
+# class profileDetailList(DetailView):
+
+
+@login_required(redirect_field_name='home')
 def update(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)

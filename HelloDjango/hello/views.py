@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Shop
 
 # Create your views here.
 
@@ -21,6 +23,20 @@ def index(request):
     # userform = UserForm()
     # return render(request, "index3.html", {"form" : userform, "people" : people})
     return render(request, "home.html")
+
+
+class ShopListView(ListView):
+    model = Shop
+    template_name = "home.html"
+    context_object_name = 'shops'
+
+class ShopDetailView(DetailView):
+    model = Shop
+    template_name = "detailShop.html"
+    # pk_url_kwarg = 'shop_id'
+    context_object_name = 'shop'
+    
+
 
 
 # def create(request):

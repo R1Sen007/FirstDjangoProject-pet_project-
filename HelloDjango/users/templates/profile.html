@@ -4,7 +4,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2   shadow p-2 rounded" >
-               <h2>My shops</h2>
+               <h2 class="display-5">My shops</h2>
+               <hr class="my-2">
+               <ul>
+                    {% for shop in shops %}
+                    <li>shop.name</li>
+                    {% endfor %}
+                    <li>hello</li>
+                    <li>hello2</li>
+               </ul>
+               <div class="mx-auto" style="width: 100px;">
+                    <a class="btn btn-primary" href="#" role="button">New shop</a>
+               </div>  
             </div>
             <div class="col-md-9 offset-md-1  shadow p-2 rounded" >
                <div class="media">
@@ -16,6 +27,7 @@
                     </figure>                                     
                     <div class="media-body">
                         <h5>{{user.first_name}} {{user.last_name}} {%if user.first_name == "" and user.last_name == ""%} {{user.username}} {%endif%}</h5>
+                        <hr class="my-2">
                         <p>{{user.email}}</p>
                     </div>
                 </div>

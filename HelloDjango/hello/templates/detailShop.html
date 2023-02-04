@@ -1,0 +1,22 @@
+{% extends "indexBoostrap.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 shadow p-2 rounded" >
+                <div class="media">
+                        <!-- <figure class="figure">
+                            <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+                            <figcaption class="figure-caption text-center">
+                                <a href="{% url 'update' %}">change profile</a>
+                            </figcaption>
+                        </figure>                                      -->
+                        <div class="media-body">
+                            <h5>{{shop.name}}</h5>
+                            <hr class="my-2">
+                            <!-- <p>{{user.email}}</p> -->
+                        </div>
+                    </div>
+                </div>
+        </div>        
+    </div>
+{% endblock content %}

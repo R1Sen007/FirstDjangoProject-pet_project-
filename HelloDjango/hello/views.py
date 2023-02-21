@@ -1,27 +1,19 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Shop
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.models import modelform_factory
+from django.template.loader import render_to_string
+from .models import Shop, Adress
+from .forms import ShopCreateForm
 
 # Create your views here.
 
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from .models import Person
 from .forms import UserForm
 
+
 def index(request):
-    # return HttpResponse("<h2>Main page</h2>")
-    # return render(request, "index.html")
-    # return render(request, "index2.html")
-    # if request.method == "GET":
-    #     userform = UserForm()
-    #     return render(request, "index3.html", {"form" : userform})
-    # elif request.method == "POST":
-    #     return postuser(request)
-
-
-    # people = Person.objects.all()
-    # userform = UserForm()
-    # return render(request, "index3.html", {"form" : userform, "people" : people})
     return render(request, "home.html")
 
 
@@ -30,80 +22,36 @@ class ShopListView(ListView):
     template_name = "home.html"
     context_object_name = 'shops'
 
+
 class ShopDetailView(DetailView):
     model = Shop
     template_name = "detailShop.html"
-    # pk_url_kwarg = 'shop_id'
+    # pk_url_kwarg = 'id'
     context_object_name = 'shop'
     
 
+class ShopCreateView(LoginRequiredMixin, CreateView):
+    model = Shop
+    template_name = 'createShop.html'
+    form_class = ShopCreateForm
+    # fields = ['name', 'adress']
+
+    def form_valid(self, form):
+        form.instance.ownerProfile = self.request.user
+        return super().form_valid(form)
+    
+    def get(self, request, *args, **kwargs):
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            return JsonResponse({'my_form': render_to_string('templateForInlineForm.html', context = {'form': modelform_factory(Adress, fields=('city', 'street', 'house'))})})
+        return super().get(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+    
+
+class AdressCreateView(LoginRequiredMixin, CreateView):
+    model = Adress
+    template_name = 'createAdress.html'
+    fields = ['city', 'street', 'house']
 
 
-# def create(request):
-#     if request.method == "POST":
-#         userform = UserForm(request.POST)
-#         if userform.is_valid():
-#             person = Person()
-#             person.name = userform.cleaned_data["name"]
-#             person.age = userform.cleaned_data["age"]
-#             person.save()
-#             return HttpResponseRedirect("/")
-#         else:
-#             return HttpResponseBadRequest("Invalid data")
-#     # else:
-#     #     index(request)       
-
-# def edit(request, id):
-#     try:
-#         person = Person.objects.get(id = id)
-#         if request.method == "POST":
-#             userform = UserForm(request.POST)
-#             if userform.is_valid():
-#                 person.name = userform.cleaned_data["name"]
-#                 person.age = userform.cleaned_data["age"]
-#                 person.save()
-#                 return HttpResponseRedirect("/")
-
-#         else:
-#             userform = UserForm(initial= {"name": person.name, "age": person.age})
-#             return render(request, "edit.html", {"form": userform})
-#     except Person.DoesNotExist:
-#         return HttpResponseNotFound("Person not found")
-
-# def delete(requst, id):
-#     try:
-#         person = Person.objects.get(id = id)
-#         person.delete()
-#         return HttpResponseRedirect("/")
-#     except Person.DoesNotExist:
-#         return HttpResponseNotFound("Person not found")
-
-
-
-# def postuser(request):
-#     name = request.POST.get("name", "undefined")
-#     age = request.POST.get("age", "undefined")
-#     return HttpResponse(f"<h2>NAME: {name} <br> AGE: {age}</h2>")
-
-# def products(request):
-#     return HttpResponse("Produsts list")
-
-# def product(request, id):
-#     return HttpResponse(f"Product №{id}")
- 
-# def new(request):
-#     return HttpResponse("New products")
- 
-# def top(request):
-#     return HttpResponse("Top products")
-
-# def comments(request, id):
-#     return HttpResponse(f"Comments about product №{id}")
-
-# def questions(request, id):
-#     return HttpResponse(f"Questions about product №{id}")
-
-# def user(request):
-#     age = request.GET.get("age", "Undefined")
-#     name = request.GET.get("name", "Undefined")
-#     return HttpResponse(f"<h2>NAME: {name} <br> AGE: {age}</h2>")

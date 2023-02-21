@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from users.models import Profile
+from django.urls import reverse
 
 
 # Create your models here.
@@ -16,6 +17,9 @@ class Adress(models.Model):
 
     def __str__(self):
         return ",".join([self.city[:3], self.street, str(self.house)])
+    
+    def get_absolute_url(self):
+        return reverse('shop-create')
 
 
 # class Owners(models.Model):
@@ -37,10 +41,13 @@ class Shop(models.Model):
     name = models.CharField(max_length = 20)
     product = models.ManyToManyField(Products, through="ShopProducts")
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
-    ownerProfile = models.ForeignKey(Profile, on_delete= models.CASCADE)
+    ownerProfile = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
         return " ".join([self.name, str(self.adress)])
+    
+    def get_absolute_url(self):
+        return reverse('shop-detail', kwargs={'pk': self.pk})
 
 
 class ShopProducts(models.Model):

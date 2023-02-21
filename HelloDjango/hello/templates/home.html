@@ -22,11 +22,11 @@
                     </div> -->
                     <div class="jumbotron">
                         <h1 class="display-3">{{shop.name}}</h1>
-                        <p class="lead">Owner: {{shop.ownerProfile.user.first_name}} {{shop.ownerProfile.user.last_name}}</p>
+                        <p class="lead">Owner: {{shop.ownerProfile.first_name}} {{shop.ownerProfile.last_name}}</p>
                         <hr class="my-2">
                         <p>More info</p>
                         <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+                            <a class="btn btn-primary btn-lg" href="{% url 'shop-detail' shop.pk %}" role="button">Detail</a>
                         </p>
                     </div>
                 {% endfor %}                

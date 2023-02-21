@@ -20,12 +20,11 @@ def register(request):
         form = UserRegistrationForm()
         return render(request, "signin.html", {'form': form})
 
-@login_required(redirect_field_name='home')
+@login_required()
 def profile(request):
     if request.method == 'POST':
         pass
     else:
-        print(request.user.id)
         context = {
             'shops': Shop.objects.filter(ownerProfile = request.user.id)
         }
@@ -35,7 +34,7 @@ def profile(request):
 # class profileDetailList(DetailView):
 
 
-@login_required(redirect_field_name='home')
+@login_required()
 def update(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -48,17 +47,3 @@ def update(request):
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
         return render(request, "update.html", context={'u_form': user_form, 'p_form': profile_form})
-
-# Create your views here.
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Your account has been created! You are now able to log in')
-#             return redirect('login')
-#     else:
-#         form = UserRegisterForm()
-#     return render(request, 'users/register.html', {'form': form})

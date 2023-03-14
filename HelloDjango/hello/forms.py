@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.admin import widgets, site as admin_site
-from .models import Person, Shop
+from .models import Shop
 
 # class UserForm(forms.Form):
 #     name = forms.CharField()
@@ -8,20 +8,21 @@ from .models import Person, Shop
 #     languages = forms.ChoiceField(choices=((1, "English"), (2, "German"), (3, "French")))
 #     password = forms.CharField(widget= forms.PasswordInput)
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = Person
-        fields = [
-            'name',
-            'age'
-        ]
+# class UserForm(forms.ModelForm):
+#     class Meta:
+#         model = Person
+#         fields = [
+#             'name',
+#             'age'
+#         ]
 
 class ShopCreateForm(forms.ModelForm):
     class Meta:
         model = Shop
         fields = [
             'name',
-            'adress'
+            'adress',
+            'image'
         ]
 
     def __init__(self, *args, **kwargs):

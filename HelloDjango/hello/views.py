@@ -9,8 +9,7 @@ from .forms import ShopCreateForm
 # Create your views here.
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
-from .models import Person
-from .forms import UserForm
+
 
 
 def index(request):

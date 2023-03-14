@@ -2,12 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from users.models import Profile
 from django.urls import reverse
-
-
-# Create your models here.
-class Person(models.Model):
-    name = models.CharField(max_length = 20)
-    age = models.IntegerField()
+from PIL import Image
 
 
 class Adress(models.Model):
@@ -22,17 +17,9 @@ class Adress(models.Model):
         return reverse('shop-create')
 
 
-# class Owners(models.Model):
-#     name = models.CharField(max_length = 20)
-#     surname = models.CharField(max_length = 20)
-
-#     def __str__(self):
-#         return  " ".join([self.name,self.surname])
-
-
 class Products(models.Model):
     name = models.CharField(max_length= 20)
-    created = models.DateField(default=None)
+    # created = models.DateField(default=None)
     def __str__(self):
         return  str(self.name)
 
@@ -41,6 +28,7 @@ class Shop(models.Model):
     name = models.CharField(max_length = 20)
     product = models.ManyToManyField(Products, through="ShopProducts")
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
+    image = models.ImageField(default="defaultShop.jpg", upload_to="shop_pic")
     ownerProfile = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -48,6 +36,29 @@ class Shop(models.Model):
     
     def get_absolute_url(self):
         return reverse('shop-detail', kwargs={'pk': self.pk})
+    
+    def save(self, *args, **kwargs):
+        super(Shop, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            size = (300, 300)
+            img = self.expand2square(img, (0, 0, 0))
+            img.thumbnail(size)
+            img.save(self.image.path)
+
+    @staticmethod
+    def expand2square(pil_img, background_color):
+        width, height = pil_img.size
+        if width == height:
+            return pil_img
+        elif width > height:
+            result = Image.new(pil_img.mode, (width, width), background_color)
+            result.paste(pil_img, (0, (width - height) // 2))
+            return result
+        else:
+            result = Image.new(pil_img.mode, (height, height), background_color)
+            result.paste(pil_img, ((height - width) // 2, 0))
+            return result
 
 
 class ShopProducts(models.Model):
@@ -58,5 +69,3 @@ class ShopProducts(models.Model):
 
     def __str__(self):
         return " ".join([str(self.products), str(self.shop)])
-
-

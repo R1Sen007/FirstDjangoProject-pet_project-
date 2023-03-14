@@ -9,7 +9,7 @@ class AdressAdmin(admin.ModelAdmin):
 #     list_display = ("id", "name", "surname")
     
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "created")
+    list_display = ("id", "name",)
 
 class ShopAdmin(admin.ModelAdmin):
     list_display = ("name", "adress", "ownerProfile") # , "product"

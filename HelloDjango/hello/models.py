@@ -17,16 +17,9 @@ class Adress(models.Model):
         return reverse('shop-create')
 
 
-class Products(models.Model):
-    name = models.CharField(max_length= 20)
-    # created = models.DateField(default=None)
-    def __str__(self):
-        return  str(self.name)
-
-
 class Shop(models.Model):
     name = models.CharField(max_length = 20)
-    product = models.ManyToManyField(Products, through="ShopProducts")
+    # product = models.ManyToManyField(Products, through="ShopProducts")
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
     image = models.ImageField(default="defaultShop.jpg", upload_to="shop_pic")
     ownerProfile = models.ForeignKey(User, on_delete= models.CASCADE)
@@ -59,13 +52,36 @@ class Shop(models.Model):
             result = Image.new(pil_img.mode, (height, height), background_color)
             result.paste(pil_img, ((height - width) // 2, 0))
             return result
-
-
-class ShopProducts(models.Model):
-    products = models.ForeignKey(Products, on_delete=models.CASCADE)
+        
+    
+class Products(models.Model):
+    name = models.CharField(max_length= 20)
+    price = models.IntegerField()
+    amount = models.IntegerField()
+    image = models.ImageField(default="defaultProduct.png", upload_to="product_pic")
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    count = models.IntegerField()
-    value = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        super(Products, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            size = (300, 300)
+            # img = self.expand2square(img, (0, 0, 0))
+            img.thumbnail(size)
+            img.save(self.image.path)
+
+    def get_absolute_url(self):
+        return reverse('shop-detail', kwargs={'pk': self.shop.pk})
 
     def __str__(self):
-        return " ".join([str(self.products), str(self.shop)])
+        return  str(self.name)
+
+
+# class ShopProducts(models.Model):
+#     # products = models.ForeignKey(Products, on_delete=models.CASCADE)
+#     # shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+#     # count = models.IntegerField()
+#     # value = models.IntegerField()
+
+#     def __str__(self):
+#         return " ".join([str(self.products), str(self.shop)])

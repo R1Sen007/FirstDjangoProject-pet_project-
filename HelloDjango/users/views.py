@@ -7,7 +7,6 @@ from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 # from django.views.generic import 
 
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -19,6 +18,7 @@ def register(request):
     else:
         form = UserRegistrationForm()
         return render(request, "signin.html", {'form': form})
+
 
 @login_required()
 def profile(request):

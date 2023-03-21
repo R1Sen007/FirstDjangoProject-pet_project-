@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelform_factory
 from django.template.loader import render_to_string
-from .models import Shop, Adress
+from .models import Shop, Adress, Products
 from .forms import ShopCreateForm
 
 # Create your views here.
@@ -27,6 +27,12 @@ class ShopDetailView(DetailView):
     template_name = "detailShop.html"
     # pk_url_kwarg = 'id'
     context_object_name = 'shop'
+    # extra_context = {'products': Products.objects.filter(shop == )}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["products"] = Products.objects.filter(shop = self.kwargs['pk'])
+        return context
     
 
 class ShopCreateView(LoginRequiredMixin, CreateView):

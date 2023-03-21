@@ -16,7 +16,7 @@
             <div class="col offset-sm-1 rounded shadow">
                 <div class="album py-5 ">
                     <div class="container">
-                        <div class="row row-cols-2 ">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                             {% for shop in shops %}
                                 <!-- <div class="jumbotron ">
                                     <h1 class="display-3">{{shop.name}}</h1>
@@ -30,21 +30,19 @@
                                 <div class="col rounded">
                                     <!-- <div class="card bg-secondary-dark  text-light shadow-sm" style="background-color: #272829;"> -->
                                     <div class="card bg-primary border-dark text-light shadow-sm" style="background-color: #272829;">
-                                        <div class="card-header ">
+                                        <!-- <div class="card-header ">
                                             <h5 class="card-title">{{shop.name}}</h5>
-                                            
-                                            <!-- <button type="button" class="btn btn-sm text-light btn-outline-light"></button> -->
-                                        </div>
+                                        </div> -->
                                         <img class="bg-dark card-img-top" src="{{shop.image.url}}">
                                         <div class="card-body ">
-                                            <h4 class="card-title">Tags:</h4>
+                                            <h4 class="card-title">{{shop.name}}</h4>
                                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
                                                     <a class="btn btn-secondary-dark btn-outline-light btn-sm" role="button" href="{% url 'shop-detail' shop.pk %}">View</a>
                                                     <a class="btn btn-secondary-dark btn-outline-light btn-sm" role="button" href="#">Owner: {{shop.ownerProfile.last_name}}</a>
                                                 </div>
-                                                <small class="text-muted">9 mins</small>
+                                                <small class="text-muted">future tags</small>
                                             </div>
                                         </div>
                                     </div>

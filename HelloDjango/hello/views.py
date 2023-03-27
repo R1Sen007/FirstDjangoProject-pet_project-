@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelform_factory
 from django.template.loader import render_to_string
+from django.urls import reverse
 from .models import Shop, Adress, Products
-from .forms import ShopCreateForm
+from .forms import ShopCreateForm, ShopUpdateForm
 
 # Create your views here.
 
@@ -53,6 +54,46 @@ class ShopCreateView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
     
+
+class ShopUpdateView(LoginRequiredMixin, UpdateView):
+    model = Shop
+    template_name = 'updateShop.html'
+    form_class = ShopUpdateForm
+
+    # def form_valid(self, form):
+    #     return super().form_valid(form)
+
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Products
+    template_name = 'createProduct.html'
+
+    fields = ['name', 'price', 'amount', 'image']
+
+    def form_valid(self, form):
+        form.instance.shop = Shop.objects.get(pk = self.kwargs['shop_pk']) 
+        return super().form_valid(form)    
+    
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+    
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    model = Products
+    template_name = 'updateProduct.html'
+    fields = '__all__'
+    pk_url_kwarg = 'product_pk'
+    
+
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
+    model = Products
+    pk_url_kwarg = 'product_pk'
+    
+    def get_success_url(self) -> str:
+        self.success_url = reverse('shop-detail', kwargs={'pk': self.kwargs['shop_pk']})
+        return super().get_success_url()
+
 
 class AdressCreateView(LoginRequiredMixin, CreateView):
     model = Adress

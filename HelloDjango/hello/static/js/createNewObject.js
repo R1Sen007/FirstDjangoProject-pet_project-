@@ -24,3 +24,22 @@ $(function(){
     });
 });
 
+// $(function(){
+//     $('#deleteButton').click(function(){
+//         alert($('#deletePostForm').attr("action"))
+//         // alert("hello")
+//     });
+// });
+
+
+$('#deleteModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var recipient = button.data('pk') 
+    var productName = button.data('pname')
+    var deleteUrl = button.data('delete-url')
+    //alert(deleteUrl)
+    var modal = $(this)
+    modal.find('.modal-body').text('Are you really want to delete: ' + productName + " ?")
+    modal.find('.modal-footer form').attr("action", deleteUrl)
+  })
+

@@ -19,11 +19,13 @@ class ShopCreateForm(forms.ModelForm):
 
 
 class ShopUpdateForm(forms.ModelForm):
+    description = forms.CharField(widget= forms.Textarea)
     class Meta:
         model = Shop
         fields = [
             'name',
             'adress',
+            'description',
             'image',
         ]
 

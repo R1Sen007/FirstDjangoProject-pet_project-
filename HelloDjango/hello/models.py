@@ -19,9 +19,9 @@ class Adress(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length = 20)
-    # product = models.ManyToManyField(Products, through="ShopProducts")
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
     image = models.ImageField(default="defaultShop.jpg", upload_to="shop_pic")
+    description = models.CharField(max_length= 60, default="description should be here")
     ownerProfile = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -66,7 +66,6 @@ class Products(models.Model):
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
             size = (300, 300)
-            # img = self.expand2square(img, (0, 0, 0))
             img.thumbnail(size)
             img.save(self.image.path)
 
@@ -75,13 +74,3 @@ class Products(models.Model):
 
     def __str__(self):
         return  str(self.name)
-
-
-# class ShopProducts(models.Model):
-#     # products = models.ForeignKey(Products, on_delete=models.CASCADE)
-#     # shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-#     # count = models.IntegerField()
-#     # value = models.IntegerField()
-
-#     def __str__(self):
-#         return " ".join([str(self.products), str(self.shop)])

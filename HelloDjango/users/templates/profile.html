@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-2 ">
                 <div class="row">
-                    <div class="col shadow p-2 rounded" >
+                    <div class="col shadow-sm p-2 rounded" >
                         <h4>My shops</h2>
                         <ul class="nav flex-column">
                              {% for shop in shops %}
@@ -15,18 +15,18 @@
                         </ul>
                         <hr class="my-2">
                         <div class="mx-auto" style="width: 100px;">
-                             <a class="btn btn-primary" href="{% url 'shop-create' %}" role="button">New shop</a>
+                             <a class="btn btn-secondary" href="{% url 'shop-create' %}" role="button">New shop</a>
                         </div>  
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-9 mt-4 mt-md-0 offset-md-1  shadow p-2 rounded" >
+            <div class="col-md-9 mt-4 mt-md-0 offset-md-1  shadow-sm p-2 rounded" >
                <div class="media">
                     <figure class="figure">
                         <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
-                        <figcaption class="figure-caption text-center">
-                            <a href="{% url 'update' %}">change profile</a>
+                        <figcaption class="figure-caption mt-1 text-center">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'update' %}">change profile</a>
                         </figcaption>
                     </figure>                                     
                     <div class="media-body">

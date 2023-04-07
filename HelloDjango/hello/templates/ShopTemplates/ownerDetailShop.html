@@ -6,7 +6,7 @@
             <div class="media">
                 <figure class="figure">
                     <img class="img-fluid border border-secondary rounded-circle " src="{{shop.image.url}}">
-                    <!-- <figcaption class="figure-caption mt-1 text-center">
+                    <figcaption class="figure-caption mt-1 text-center">
                         <div class="btn-group">
                             <a class="btn btn-sm  btn-success" href="{% url 'product-create' shop.pk %}">
                                 <i class="bi bi-plus-circle-fill"></i>
@@ -16,7 +16,7 @@
                                 </a>
                             <a class="btn btn-sm btn-danger" href="#"><i class="bi bi-trash3-fill"></i></a>
                         </div>  
-                    </figcaption> -->
+                    </figcaption>
                 </figure>
                 <div class="media-body">
                     <h5>{{shop.name}}</h5>
@@ -42,10 +42,10 @@
                                         <p class="card-text">Price: {{product.price}}</p>
                                         <p class="card-text">In stock: {{product.amount}}</p>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <!-- <div class="btn-group">
+                                            <div class="btn-group">
                                                 <a class="btn btn-success  btn-sm" role="button" href="{% url 'product-update' shop.pk product.pk %}">edit</a>
                                                 <a class="btn btn-danger  btn-sm" role="button" data-pk="{{product.pk}}" data-pname="{{product.name}}" data-delete-url="{% url 'product-delete' shop.pk product.pk %}" data-bs-toggle="modal" data-bs-target="#deleteModal">delete</a>     
-                                            </div> -->
+                                            </div>
                                             <small class="text-muted">future tags</small>
                                         </div>
                                     </div>

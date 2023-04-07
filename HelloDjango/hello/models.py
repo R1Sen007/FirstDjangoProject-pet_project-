@@ -39,6 +39,10 @@ class Shop(models.Model):
             img.thumbnail(size)
             img.save(self.image.path)
 
+    def is_owner(self, user):
+        return self.ownerProfile == user
+
+
     @staticmethod
     def expand2square(pil_img, background_color):
         width, height = pil_img.size
@@ -68,6 +72,9 @@ class Products(models.Model):
             size = (300, 300)
             img.thumbnail(size)
             img.save(self.image.path)
+
+    def is_owner(self, user):
+        return self.shop.is_owner(user)            
 
     def get_absolute_url(self):
         return reverse('shop-detail', kwargs={'pk': self.shop.pk})

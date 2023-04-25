@@ -36,7 +36,7 @@
                                         <img class="bg-dark card-img-top" src="{{shop.image.url}}">
                                         <div class="card-body ">
                                             <h4 class="card-title">{{shop.name}}</h4>
-                                            <p class="card-text">{{shop.description}}</p>
+                                            <p class="card-text">{{shop.description|truncatewords:8}}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
                                                     <a class="btn btn-dark  btn-sm" role="button" href="{% url 'shop-detail' shop.pk %}">View</a>

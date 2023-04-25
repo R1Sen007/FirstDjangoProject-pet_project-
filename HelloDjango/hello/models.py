@@ -21,7 +21,7 @@ class Shop(models.Model):
     name = models.CharField(max_length = 20)
     adress = models.OneToOneField(Adress, on_delete= models.CASCADE, primary_key= True)
     image = models.ImageField(default="defaultShop.jpg", upload_to="shop_pic")
-    description = models.CharField(max_length= 60, default="description should be here")
+    description = models.CharField(max_length= 230, default="description should be here")
     ownerProfile = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):

@@ -7,6 +7,13 @@ petProject
 За основу взята идея создания собственной площадки по размещению своих магазинов и товаров в нём.
 Паралельно были использованы Bootstrap, Jquerry.
 
+## How looks it now:
+### Home page:
+![home](/HelloDjango/PresentationPicture/Home.PNG)
+### LK:
+![lk](/HelloDjango/PresentationPicture/lk.PNG)
+### ShopProfile:
+![ShopProfile](/HelloDjango/PresentationPicture/ShopProfile.PNG)
 
 ## How to install:
 ### 1) Clone repository
